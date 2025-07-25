@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Petra's Playlist 🎶</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="heart-container"></div>
+  <div class="container">
+
+    <h1>🎧 Your Birthday Playlist</h1>
+
+    
+    <div class="music-container">
+      <button id="toggleMusic" class="music-btn">▶️ Play Music</button>
+    </div>
+
+   
+    <div class="playlist-section">
+      <p>
+        So here, I created a playlist that has some songs from me, to you. I mean it has some songs from the latest albums that dropped while we're in school. So yeah, Enjoy💕
+
+      </p>
+
+     
+    <iframe style="border-radius:12px"
+      src="https://open.spotify.com/embed/playlist/7zYnj1LROxNvnGHsQEH6Gk?utm_source=generator&theme=0"
+      width="100%" height="352" frameBorder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+
+
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="gifts.html" class="next-button">← Back to Gift Zone</a>
+    </div>
+
+    <footer>© Made for Petra, with love. 💖</footer>
+
+  </div>
+
+  <script src="music-toggle.js"></script>
+  <script>
+  const heartContainer = document.getElementById("heart-container");
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+    heart.style.fontSize = (Math.random() * 10 + 15) + "px";
+    heartContainer.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }
+
+  setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>

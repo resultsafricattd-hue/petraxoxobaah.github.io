@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Petra's Birthday Surprises 🎁</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Heart Drop Animation */
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background: #fff4f9;
+      font-family: 'Segoe UI', sans-serif;
+      position: relative;
+    }
+
+    .heart {
+      position: fixed;
+      top: -50px;
+      color: #e84794;
+      font-size: 20px;
+      animation: fall linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Container and Buttons */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      color: #e84794;
+      margin-bottom: 30px;
+    }
+
+    .next-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #e84794;
+      color: white;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .music-btn {
+      padding: 10px 20px;
+      background-color: #e84794;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 60px;
+      color: #999;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+ 
+  <div id="heart-container"></div>
+
+  <div class="container">
+    <h1>Your Birthday Gift Zone 💖</h1>
+
+    <div style="text-align: center; margin-top: 20px;">
+      <button id="toggleMusic" class="music-btn">⏸️ Pause Music</button>
+    </div>
+
+    <p style="text-align: center; margin-top: 30px; font-size: 1.1rem;">
+      I made 3 mini surprises...Pick one 👇
+    </p>
+
+    <div class="gift-links" style="margin-top: 40px; display: flex; flex-direction: column; gap: 20px; align-items: center;">
+      <a href="gift-memory.html" class="next-button">🃏 Memory Flip Cards</a>
+      <a href="gift-playlist.html" class="next-button">🎶 Your Birthday Playlist</a>
+      <a href="gift-reasons.html" class="next-button">💕 Just These Reasons</a>
+       <a href="gift-final.html" class="next-button">FINALLY..... </a>
+    </div>
+
+    <div style="text-align: center; margin-top: 60px;">
+      <a href="index.html" class="next-button">← Back to the Letter</a>
+    </div>
+
+    <footer>© Made for Petra, with love. 💖</footer>
+  </div>
+
+  <script src="music-toggle.js"></script>
+  <script>
+
+    const heartContainer = document.getElementById("heart-container");
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+      heart.style.fontSize = (Math.random() * 10 + 15) + "px";
+      heartContainer.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Memory Flip Cards 🃏</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .memory-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .card {
+      width: 140px;
+      height: 160px;
+      perspective: 1000px;
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      background: #e84794;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-weight: bold;
+      text-align: center;
+      padding: 10px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background: #222;
+      flex-direction: column;
+    }
+
+    .card-back video {
+      width: 120px;
+      height: 100px;
+      border-radius: 10px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="heart-container"></div>
+  <div class="container">
+    <h1>Flip a Memory 💌</h1>
+
+    <div style="text-align: center; margin-top: 20px;">
+      <button id="toggleMusic" class="music-btn">⏸️ Pause Music</button>
+    </div>
+
+    <p style="text-align: center; margin-top: 30px; font-size: 1.1rem;">
+      Tap a card to relive a moment we’ve always used to keep company of each other 💖
+    </p>
+
+    <div class="memory-cards">
+
+     
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">🌚 Flip Me</div>
+          <div class="card-back">“Red thoughts and blue thoughts, remember? 😏💭”</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">📸 Flip Me</div>
+          <div class="card-back">
+            <img src="videos/IMG_0362.JPG" alt="YOU AND I" style="width: 100%; border-radius: 10px;">
+            <p style="font-size: 0.8rem; margin-top: 6px;">Red thoughts and blue thoughts energy 🌚💭</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 - Video -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">😂 Flip Me</div>
+          <div class="card-back">
+            
+            <video controls>
+              <source src="videos/video-3.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">😂 Flip Me</div>
+          <div class="card-back">
+            
+            <video controls>
+              <source src="videos/video-4.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Card 4 - Video -->
+  <div class="card">
+        <div class="card-inner">
+          <div class="card-front">📸 Flip Me</div>
+          <div class="card-back">
+            <img src="videos/IMG_0386.JPG" alt="YOU AND I" style="width: 100%; border-radius: 10px;">
+            <p style="font-size: 0.8rem; margin-top: 6px;"></p>
+          </div>
+        </div>
+      </div>
+  
+
+      <!-- Card 5 - Text -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">📞 Flip Me</div>
+          <div class="card-back">“Those 2AM convos where time disappeared.”</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align: center; margin-top: 50px;">
+      <a href="gifts.html" class="next-button">← Back to Gift Zone</a>
+    </div>
+
+    <footer>© Made for Petra, with love. 💖</footer>
+  </div>
+
+  <script src="music-toggle.js"></script>
+  <script>
+  const heartContainer = document.getElementById("heart-container");
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+    heart.style.fontSize = (Math.random() * 10 + 15) + "px";
+    heartContainer.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }
+
+  setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>

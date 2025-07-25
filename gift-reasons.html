@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reasons You're the Realest 💗</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff4f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #e84794;
+      margin-bottom: 30px;
+    }
+
+    .reason-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .reason-card {
+      position: relative;
+      width: 240px;
+      height: 160px;
+      perspective: 1000px;
+    }
+
+    .reason-front,
+    .reason-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      border-radius: 15px;
+      background-color: #ffe4ec;
+      color: #333;
+      font-weight: bold;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backface-visibility: hidden;
+      transition: transform 0.6s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .reason-front {
+      background-color: #e84794;
+      color: white;
+      font-size: 1.05rem;
+    }
+
+    .reason-back {
+      transform: rotateY(180deg);
+      background-color: #fff;
+      color: #555;
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+
+    .reason-card:hover .reason-front {
+      transform: rotateY(180deg);
+    }
+
+    .reason-card:hover .reason-back {
+      transform: rotateY(0deg);
+    }
+
+    .next-button {
+      display: inline-block;
+      margin-top: 60px;
+      padding: 12px 24px;
+      background-color: #e84794;
+      color: white;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 60px;
+      color: #999;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+     <div id="heart-container"></div>
+    <div id="heart-container"></div>
+  <div class="container">
+    <h1>Reasons You’re the Realest 💅</h1>
+
+    <div class="reason-grid">
+
+      <div class="reason-card">
+        <div class="reason-front">Why You’re My Favorite</div>
+        <div class="reason-back">Because we've been there for each other through thick and thin💗</div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-front">Why I’ll Always Be There For You</div>
+        <div class="reason-back">You’ve been pushing through things no one even knows about. That's just the absolute respect and admiration I have for you </div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-front">Why I Admire You</div>
+        <div class="reason-back">Because you one of the few I put in my dictionary as the definition of being perfect</div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-front">Why I’m Lucky</div>
+        <div class="reason-back">You didn't have to proritize me over all everyone you had... but you did 💖</div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-front">Why You're Underrated</div>
+        <div class="reason-back">You give so much love in silence. That’s rare, Petra. Real rare.</div>
+      </div>
+
+      
+
+    </div>
+
+    <a href="gifts.html" class="next-button">← Back to Gifts</a>
+    <footer>© Made with real love, just for Petra 💘</footer>
+  </div>
+  <script>
+  const heartContainer = document.getElementById("heart-container");
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+    heart.style.fontSize = (Math.random() * 10 + 15) + "px";
+    heartContainer.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }
+
+  setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>

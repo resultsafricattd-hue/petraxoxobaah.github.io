@@ -108,7 +108,7 @@
 
   <footer>Forever yours, Kobby 💘</footer>
 
-  <script>
+<script>
   // FLOATING HEARTS
   const heartContainer = document.getElementById("heart-container");
 
@@ -129,6 +129,7 @@
   const toggleBtn = document.getElementById("toggleMusic");
   const previousTime = sessionStorage.getItem("bgAudioTime");
 
+  // Only define bgAudio once across pages
   if (!window.bgAudio) {
     window.bgAudio = new Audio("dandelions.mp3");
     window.bgAudio.loop = true;
@@ -138,18 +139,24 @@
       window.bgAudio.currentTime = parseFloat(previousTime);
     }
 
-    // Resume on user interaction
+    // Wait for user interaction to start audio
     document.addEventListener("click", () => {
-      window.bgAudio.play().catch(() => console.warn("Autoplay blocked"));
+      window.bgAudio.play()
+        .then(() => {
+          if (toggleBtn) toggleBtn.innerText = "⏸️ Pause Music";
+        })
+        .catch(() => {
+          console.warn("Autoplay blocked");
+        });
     }, { once: true });
   }
 
-  // Save current time before page unload
+  // Save current audio time before switching pages
   window.addEventListener("beforeunload", () => {
     sessionStorage.setItem("bgAudioTime", window.bgAudio.currentTime);
   });
 
-  // Toggle
+  // Toggle music button logic
   if (toggleBtn) {
     toggleBtn.addEventListener("click", () => {
       if (window.bgAudio.paused) {
@@ -161,6 +168,7 @@
       }
     });
 
+    // Set initial state
     toggleBtn.innerText = window.bgAudio.paused
       ? "▶️ Play Music"
       : "⏸️ Pause Music";

@@ -1,9 +1,9 @@
 const toggleBtn = document.getElementById("toggleMusic");
 
-// Load previous time if available
+// Load last playback time
 const previousTime = sessionStorage.getItem("bgAudioTime");
 
-// Create only once globally
+// Prevent redeclaration across pages
 if (!window.bgAudio) {
   window.bgAudio = new Audio("dandelions.mp3");
   window.bgAudio.loop = true;
@@ -13,25 +13,28 @@ if (!window.bgAudio) {
     window.bgAudio.currentTime = parseFloat(previousTime);
   }
 
-  // Start music on first click
+  // Autoplay on first interaction
   const startMusic = () => {
-    window.bgAudio.play().catch(() => {
+    window.bgAudio.play().then(() => {
+      if (toggleBtn) toggleBtn.innerText = "⏸️ Pause Music";
+    }).catch(() => {
       console.warn("Autoplay blocked.");
     });
+
     document.removeEventListener("click", startMusic);
   };
 
-  document.addEventListener("click", startMusic);
+  document.addEventListener("click", startMusic, { once: true });
 }
 
-// Save current playback time before page unloads
+// Save current time before switching pages
 window.addEventListener("beforeunload", () => {
   if (window.bgAudio) {
     sessionStorage.setItem("bgAudioTime", window.bgAudio.currentTime);
   }
 });
 
-// Toggle music manually
+// Music toggle button
 if (toggleBtn) {
   toggleBtn.addEventListener("click", () => {
     if (window.bgAudio.paused) {
@@ -41,14 +44,10 @@ if (toggleBtn) {
       window.bgAudio.pause();
       toggleBtn.innerText = "▶️ Play Music";
     }
-  }
+  });
 
-  );
-
-  // Set initial state
-  if (window.bgAudio.paused) {
-    toggleBtn.innerText = "▶️ Play Music";
-  } else {
-    toggleBtn.innerText = "⏸️ Pause Music";
-  }
+  // Show correct label on load
+  toggleBtn.innerText = window.bgAudio.paused
+    ? "▶️ Play Music"
+    : "⏸️ Pause Music";
 }

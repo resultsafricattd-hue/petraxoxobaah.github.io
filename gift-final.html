@@ -98,6 +98,8 @@
 <body>
 
   <div class="heart-bg" id="heart-container"></div>
+  <button id="toggleMusic" class="music-btn">⏸️ Pause Music</button>
+  <div id="heart-container"></div>
 
   <div class="center-content">
     <h1>I LOVE YOU<br>SOOOO MUCH!!! 💖</h1>
@@ -107,24 +109,63 @@
   <footer>Forever yours, Kobby 💘</footer>
 
   <script>
-    // Floating hearts logic
-    const heartContainer = document.getElementById("heart-container");
+  // FLOATING HEARTS
+  const heartContainer = document.getElementById("heart-container");
 
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.innerText = "💖";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
-      heart.style.fontSize = (Math.random() * 15 + 15) + "px";
-      heart.style.left = Math.random() * window.innerWidth + "px";
-      heartContainer.appendChild(heart);
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+    heart.style.fontSize = (Math.random() * 15 + 15) + "px";
+    heartContainer.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }
 
-      setTimeout(() => heart.remove(), 6000);
+  setInterval(createHeart, 300);
+
+  // MUSIC TOGGLE
+  const toggleBtn = document.getElementById("toggleMusic");
+  const previousTime = sessionStorage.getItem("bgAudioTime");
+
+  if (!window.bgAudio) {
+    window.bgAudio = new Audio("dandelions.mp3");
+    window.bgAudio.loop = true;
+    window.bgAudio.volume = 0.5;
+
+    if (previousTime) {
+      window.bgAudio.currentTime = parseFloat(previousTime);
     }
 
-    setInterval(createHeart, 300);
-  </script>
+    // Resume on user interaction
+    document.addEventListener("click", () => {
+      window.bgAudio.play().catch(() => console.warn("Autoplay blocked"));
+    }, { once: true });
+  }
+
+  // Save current time before page unload
+  window.addEventListener("beforeunload", () => {
+    sessionStorage.setItem("bgAudioTime", window.bgAudio.currentTime);
+  });
+
+  // Toggle
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      if (window.bgAudio.paused) {
+        window.bgAudio.play();
+        toggleBtn.innerText = "⏸️ Pause Music";
+      } else {
+        window.bgAudio.pause();
+        toggleBtn.innerText = "▶️ Play Music";
+      }
+    });
+
+    toggleBtn.innerText = window.bgAudio.paused
+      ? "▶️ Play Music"
+      : "⏸️ Pause Music";
+  }
+</script>
 
 </body>
 </html>

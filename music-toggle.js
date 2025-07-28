@@ -1,43 +1,54 @@
-// Get the toggle button
 const toggleBtn = document.getElementById("toggleMusic");
 
-if (toggleBtn) {
-  // Create bgAudio only once globally
-  if (!window.bgAudio) {
-    window.bgAudio = new Audio("dandelions.mp3");
-    window.bgAudio.loop = true;
-    window.bgAudio.volume = 0.5;
+// Load previous time if available
+const previousTime = sessionStorage.getItem("bgAudioTime");
 
-    // Only start on user's first interaction (click anywhere)
-    const startMusicOnce = () => {
-      window.bgAudio.play().catch(() => {
-        console.warn("Autoplay blocked by browser.");
-      });
-      document.removeEventListener("click", startMusicOnce);
-    };
+// Create only once globally
+if (!window.bgAudio) {
+  window.bgAudio = new Audio("dandelions.mp3");
+  window.bgAudio.loop = true;
+  window.bgAudio.volume = 0.5;
 
-    document.addEventListener("click", startMusicOnce);
+  if (previousTime) {
+    window.bgAudio.currentTime = parseFloat(previousTime);
   }
 
-  // Toggle play/pause on button click
+  // Start music on first click
+  const startMusic = () => {
+    window.bgAudio.play().catch(() => {
+      console.warn("Autoplay blocked.");
+    });
+    document.removeEventListener("click", startMusic);
+  };
+
+  document.addEventListener("click", startMusic);
+}
+
+// Save current playback time before page unloads
+window.addEventListener("beforeunload", () => {
+  if (window.bgAudio) {
+    sessionStorage.setItem("bgAudioTime", window.bgAudio.currentTime);
+  }
+});
+
+// Toggle music manually
+if (toggleBtn) {
   toggleBtn.addEventListener("click", () => {
     if (window.bgAudio.paused) {
       window.bgAudio.play();
       toggleBtn.innerText = "⏸️ Pause Music";
-      toggleBtn.classList.add("playing");
     } else {
       window.bgAudio.pause();
       toggleBtn.innerText = "▶️ Play Music";
-      toggleBtn.classList.remove("playing");
     }
-  });
+  }
 
-  // Reflect correct button state on page load
+  );
+
+  // Set initial state
   if (window.bgAudio.paused) {
     toggleBtn.innerText = "▶️ Play Music";
-    toggleBtn.classList.remove("playing");
   } else {
     toggleBtn.innerText = "⏸️ Pause Music";
-    toggleBtn.classList.add("playing");
   }
 }
